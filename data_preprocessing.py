@@ -18,12 +18,13 @@ nltk.download('punkt')
 
 
 
-# Fonction 
+# URL cleaning function
 
 def remove_URL(text):
     url = re.compile(r'https?://\S+|www\.\S+|http?://\S+')
     return url.sub(r'', text)
 
+# Emoji removal function
 def remove_emoji(text):
     emoji_pattern = re.compile(
         '['
@@ -37,21 +38,23 @@ def remove_emoji(text):
         flags=re.UNICODE)
     return emoji_pattern.sub(r'', text)
 
+# Punctuation removal function
 def remove_punct(text):
     table = str.maketrans('', '', string.punctuation)
     return text.translate(table)
 
+# Newlines removal function
 def remove_newlines(text):
     text = re.sub(r'\n', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-
+# Numbers removal function
 def remove_digits(text):
   digit = re.compile(r'[0-9]*')
   return digit.sub(r'', text)
 
-
+# Repetitive letters removal
 def remove_repetitive_letters(text):
     pattern = r'(\w)\1{2,}'  
     cleaned_text = re.sub(pattern, r'\1', text)
@@ -60,8 +63,7 @@ def remove_repetitive_letters(text):
 
 
 
-# Contractions anglaises  +  acronyme GD = gestational diabetes
-
+# English contractions
 contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
                      "can't": "cannot","can't've": "cannot have",
                      "'cause": "because","could've": "could have","couldn't": "could not",
@@ -108,7 +110,7 @@ def expand_contractions(text,contractions_dict=contractions_dict):
   return contractions_re.sub(replace, text)
 
 
-
+# stopwords removal
 def remove_stop_words(text) :
 
   # Lowercasing
@@ -118,14 +120,13 @@ def remove_stop_words(text) :
   # tokenization
   tokens = word_tokenize(text)
 
-  #stopword removal
   stop_words = set(stopwords.words('english')) 
   tokens = [token for token in tokens if token not in stop_words]
 
   return(' '.join(tokens))
 
 
-
+# Lemmatization (optional step)
 def lemmatize(text) :
 
   tokens = word_tokenize(text)
@@ -140,7 +141,7 @@ def lemmatize(text) :
 
 #######################################################################################################
 
-filenpath = "../data/metfo_insu_gd_posts.csv" 
+file_path = "../data/metfo_insu_gd_posts.csv" 
 
 
   # Reading the CSV file
