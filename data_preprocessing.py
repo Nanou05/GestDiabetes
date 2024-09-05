@@ -161,7 +161,7 @@ df['text'] = df['text'].apply(lambda x : lemmatize(x))
 
 
 
-# Export of the preprocessed posts
+# Exporting the preprocessed posts
 
 df.to_csv("../data/cleaned_posts.csv", encoding = "utf-8", index = False, sep = ";", decimal = ",")
 
