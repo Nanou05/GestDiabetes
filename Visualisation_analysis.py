@@ -456,7 +456,7 @@ nausea = [r"[\a-z]*nausea[\a-z]*", r"[\a-z]*thr[o,e]w[\a-z]*", r"[\a-z]*vomit[\a
 cold = [r"[\a-z]*cold[\a-z]*"]
 
 
-# Fonction permettant d'indiquer si une liste de mots contient un syptÃ´me d'une classe dÃ©finie par un dictionnaire (renvoie 1 si oui, 0 si non)
+# Function to indicate if a list of words contains a symptom belonging to a pre-defined class: 1 = present, 0 = absent
 
 def classify_sign(sign_list, dic) : 
 
@@ -474,9 +474,9 @@ def classify_sign(sign_list, dic) :
 
 
 
-# Identification des classes apparaissant ou non dans chaque post (pour chaque classe : ajout d'une variable binaire)
-
-	## "Metformin and insulin"
+# Identifying the classes present or not in each post: 1 = present, 0 = absent
+    
+    ## "Metformin and insulin"
 
 df_both = df_both.groupby('post_number').agg(lambda x : list(x))
 
@@ -528,7 +528,7 @@ df_insu['cold'] = [classify_sign(x, cold) for x in df_insu['sign'].tolist()]
 
 
 
-# Calcul du nombre de post mentionnant chaque classe de symptÃ´mes et affichage
+# Calculating the number of posts mentioning each class of symptoms
 
 print("\n\nMetformin et insulin (" + str(df[df.drug == "Metformin and insulin"].shape[0]) +" posts)")
 
