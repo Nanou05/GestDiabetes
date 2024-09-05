@@ -145,7 +145,9 @@ file_path = "../data/metfo_insu_gd_posts.csv"
 
 
   # Reading the CSV file
-df = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
+df = pd.read_csv(file_path, 
+                 delimiter=';', 
+                 encoding='utf-8')
 
 
   # Applying the preprocessing functions on the text data
@@ -164,7 +166,11 @@ df['text'] = df['text'].apply(lambda x : lemmatize(x))
 
 # Exporting the preprocessed posts
 
-df.to_csv("../data/cleaned_posts.csv", encoding = "utf-8", index = False, sep = ";", decimal = ",")
+df.to_csv("../data/cleaned_posts.csv", 
+          encoding = "utf-8", 
+          index = False, 
+          sep = ";", 
+          decimal = ",")
 
 
 
