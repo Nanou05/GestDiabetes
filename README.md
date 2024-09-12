@@ -11,7 +11,7 @@
 * The extracted data is not provided in this repo, but can be sent if requested.
 
 ## Scripts
-* This repo is composed of 3 main python sripts to run in this order:
+* This repo is composed of 3 main python sripts to run in this order: (available in "Code" branch)
 * 1 : web_scrapping.py
 * 2 : preprocessing.py
 * 3 : visualisation_analysis.py
