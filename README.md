@@ -1,4 +1,4 @@
-# GestationalDiabetes
+# GestDiabetes
 ### Analysis of Web data on Gestational Diabetes
 
 ## Introduction
