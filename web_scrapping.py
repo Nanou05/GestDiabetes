@@ -2,7 +2,7 @@
 """
 Created on Mar  5 16:46:09 2024
 
-@author: Naima OUBENALI
+@author: N Ouben
 """
 
 import requests
@@ -17,7 +17,7 @@ base_url ='https://community.whattoexpect.com/'
 url_topic = 'https://community.whattoexpect.com/forums/gestational-diabetes.html'
 
 
-n_page = 530 # You can adapt this number to your liking / number of pages available
+n_page = 500 # You can adapt this number to your liking / number of pages available
 
 all_link = []
 
@@ -90,66 +90,33 @@ posts_diab_gest.to_csv("../data/gd_posts.csv",
 
 
 
+# Function to filter posts containing a specific keyword (insulin or metformin)
 
-# Filtering the posts that contain "metformin"
+def filter_export(posts, keyword, file_path):
+    filtered_posts = posts.dropna()
+    filtered_posts = filtered_posts[filtered_posts['text'].str.lower().str.contains(keyword)]
+    filtered_posts.to_csv(file_path, 
+                          encoding="utf-8",
+                          index=False,
+                          sep=";",
+                          decimal=",")
+    return filtered_posts
 
-p_filter = posts_diab_gest
+# Load data
+posts_diab_gest = pd.read_csv("../data/gd_posts.csv")
 
-	# lowercasing
-p_filter.text = p_filter.text.str.lower()
-	
-	# removal of empty posts
-p_filter = p_filter.dropna()
-	
-	# removal of empty posts
-p_filter = p_filter[p_filter['text'].str.contains("metformin")]
+# Filter posts containing "metformin" and export
+metformin_posts = filter_export(posts_diab_gest, "metformin", "../data/metformin_gd_posts.csv")
 
-	#export the posts to a csv file
-p_filter.to_csv("../data/metformin_gd_posts.csv", 
-                encoding = "utf-8", 
-                index = False, 
-                sep = ";", 
-                decimal = ",")
+# Filter posts containing "insulin" and export
+insulin_posts = filter_export(posts_diab_gest, "insulin", "../data/insulin_gd_posts.csv")
 
+# Combine both filtered datasets and remove duplicates
+combined_posts = pd.concat([metformin_posts, insulin_posts]).drop_duplicates()
 
-
-
-# Getting the posts containing the word "insulin"
-
-p_filter2 = posts_diab_gest
-
-	# lowercasing
-p_filter2.text = p_filter2.text.str.lower()
-
-	# removal of empty posts
-p_filter2 = p_filter2.dropna()
-
-	# filter on "insulin"
-p_filter2 = p_filter2[p_filter2['text'].str.contains("insulin")]
-
-	# export to a csv file
-p_filter2.to_csv("../data/insulin_gd_posts.csv", 
-                 encoding = "utf-8", 
-                 index = False, 
-                 sep = ";", 
-                 decimal = ",")
-
-
-
-# Getting the posts that have at least one of the two words "metformin" or "insulin"
-
-p_final = pd.concat([p_filter, p_filter2])
-	
-	# removal of duplicates
-p_final_dedoublonnage = p_final.drop_duplicates(keep = 'first')
-
-	#exporting the data to a csv file
-p_final_dedoublonnage.to_csv("../data/metfo_insu_gd_posts.csv", 
-                             encoding = "utf-8", 
-                             index = False, 
-                             sep = ";", 
-                             decimal = ",")
-
-
-
-
+# Export the combined dataset to CSV
+combined_posts.to_csv("../data/metfo_insu_gd_posts.csv",
+                      encoding="utf-8", 
+                      index=False,
+                      sep=";",
+                      decimal=",")

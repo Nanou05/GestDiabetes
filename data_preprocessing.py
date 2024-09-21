@@ -2,7 +2,7 @@
 """
 Created on Mar  5 16:46:09 2024
 
-@author: Naima OUBENALI
+@author: N Ouben
 """
 
 import string

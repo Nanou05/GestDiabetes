@@ -2,7 +2,7 @@
 """
 Created on Mar  5 17:18:00 2024
 
-@author: Naima OUBENALI
+@author: N Ouben
 """
 
 import pandas as pd
@@ -137,7 +137,7 @@ plt.show()
 	# wordcloud "Metformin and insulin" posts 
 wordcloud = WordCloud(background_color ='aliceblue',
 	min_font_size = 10, 
-	stopwords = mots_a_exclure, 
+	stopwords = words_to_exclude, 
 	colormap = "Dark2").generate(' '.join(df[df.drug == "Metformin and insulin"]["text"]))
  
 plt.figure(figsize = (8, 8), facecolor = None)
